@@ -3,9 +3,20 @@ const express = require('express');
 var app = express();
 const bodyparser = require('body-parser');
 const mongoose = require('mongoose');
-
+const cors=require('cors');
+const morgan=require("morgan")
+const dotenv = require("dotenv");
 const dbConfig = require('./config/database.config.js');
+
+// enable .env
+dotenv.config();
+
+// middllewares
 app.use(bodyparser.json());
+app.use(cors())
+app.use(morgan("dev"));
+
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(dbConfig.url, {
@@ -28,6 +39,8 @@ app.use('/classes', require('./routes/Classes'));
 // app.use('/questions', require('./routes/questions'));
 // app.use('/questionOptions', require('./routes/questionOptions'));
 // app.use('/answers', require('./routes/answers'));
+app.use('/api',require("./routes/User"))
+
 
 //Get all employees
 app.get('/employees', (req, res) => {
@@ -38,6 +51,7 @@ app.get('/employees', (req, res) => {
             console.log(err);
     })
 });
+
 
 //Get an employees
 app.get('/employees/:id', (req, res) => {
