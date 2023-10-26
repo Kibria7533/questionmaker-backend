@@ -9,4 +9,4 @@ const generateToken=(id)=>{
   }
 }
 
-module.exports={generateToken};
+module.exports=generateToken;

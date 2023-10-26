@@ -7,7 +7,8 @@ const cors=require('cors');
 const morgan=require("morgan")
 const dotenv = require("dotenv");
 const dbConfig = require('./config/database.config.js');
-
+const {isAuthenticated}=require("./middlewares/isAuthenticated.js")
+const userRouter=require("./routes/User.js")
 // enable .env
 dotenv.config();
 
@@ -39,8 +40,8 @@ app.use('/classes', require('./routes/Classes'));
 // app.use('/questions', require('./routes/questions'));
 // app.use('/questionOptions', require('./routes/questionOptions'));
 // app.use('/answers', require('./routes/answers'));
-app.use('/api',require("./routes/User"))
-
+app.use('/api/auth',require("./routes/Auth.js"))
+app.use("/api/users",userRouter)
 
 //Get all employees
 app.get('/employees', (req, res) => {
