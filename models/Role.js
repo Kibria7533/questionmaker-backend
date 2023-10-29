@@ -7,6 +7,18 @@ const RoleSchema = new Schema({
       type: String,
       required: true
     },
+    title:{
+      type:String,
+      required:true
+    },
+    slug:{
+      type:String,
+      required:true
+    },
+    description:{
+      type:String,
+      required:true
+    },
     permissions:[
       {
         type: mongoose.Schema.Types.ObjectId,

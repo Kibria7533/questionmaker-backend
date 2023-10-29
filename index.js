@@ -7,8 +7,11 @@ const cors=require('cors');
 const morgan=require("morgan")
 const dotenv = require("dotenv");
 const dbConfig = require('./config/database.config.js');
-const {isAuthenticated}=require("./middlewares/isAuthenticated.js")
 const userRouter=require("./routes/User.js")
+const roleRouter=require("./routes/Role");
+const permissionRouter=require('./routes/Permission.js')
+
+
 // enable .env
 dotenv.config();
 
@@ -42,6 +45,8 @@ app.use('/classes', require('./routes/Classes'));
 // app.use('/answers', require('./routes/answers'));
 app.use('/api/auth',require("./routes/Auth.js"))
 app.use("/api/users",userRouter)
+app.use("/api/roles",roleRouter)
+app.use("/api/permissions",permissionRouter)
 
 //Get all employees
 app.get('/employees', (req, res) => {

@@ -89,7 +89,7 @@ const deleteAnUser = async (req, res) => {
 const getAnAllUser = async (req, res) => {
   try {
     await Promise.resolve().then(async () => {
-      const user = await User.find({});
+      const user = await User.find({}).populate("roles");
       res.status(200).json(user);
     });
   } catch (error) {
