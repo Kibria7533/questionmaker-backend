@@ -1,11 +1,10 @@
-const User = require("../models/User");
+
+const { roleCheck } = require("../utlils/roleCheck");
 
 const isAdmin=async(req,res,next)=>{
-      const userId=req.user?._id;
-      const user=await User.findByIdAndUpdate(userId)
-  console.log(user)
-      const admin=user.roles.filter((role)=>role.roleName==="admin");
-     console.log(admin)
+    
+const admin= await roleCheck(req.user?.roles,"admin");
+
         if(admin){
           next();
         }else{

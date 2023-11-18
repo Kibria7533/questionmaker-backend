@@ -22,6 +22,7 @@ const isAuthenticated=async(req,res,next)=>{
         return
       }
       req.user=user;
+      // console.log(req.user)
       next();
 
   }catch(error){

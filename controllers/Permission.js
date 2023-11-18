@@ -3,6 +3,19 @@ const mongoose = require("mongoose");
 const Permission=require("../models/Permission")
 
 
+const permisssionAssginToRole=async(req,res)=>{
+  const roleId=req.body.roleId
+  const permissonId=req.body.permissionId
+
+  const role = await Role.updateOne(
+    { _id: roleId},
+    { $push: { permissions: permissonId } }
+  );
+
+  res.json({role})
+}
+
+
 // create a new role;
 const createAPermission= async (req, res) => {
   try {
@@ -88,4 +101,4 @@ const deleteAnPermission = async (req, res) => {
 };
 
 
-module.exports = { createAPermission,updateAPermission,deleteAnPermission };
+module.exports = { createAPermission,updateAPermission,deleteAnPermission,permisssionAssginToRole };

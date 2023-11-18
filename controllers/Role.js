@@ -3,6 +3,17 @@ const mongoose = require("mongoose");
 const User = require("../models/User");
 
 
+const roleAssginToUser=async(req,res)=>{
+  const userId =req.body.userId
+  const roleId=req.body.roleId
+  const user = await User.updateOne(
+    { _id: new ObjectId(userId) },
+    { $push: { roles: new ObjectId(roleId) } }
+  );
+
+  res.json({user})
+}
+
 // create a new role;
 const createARole= async (req, res) => {
   try {
@@ -108,4 +119,4 @@ const deleteAnRole = async (req, res) => {
 };
 
 
-module.exports = { createARole,updateARole,deleteAnRole };
+module.exports = { createARole,updateARole,deleteAnRole,roleAssginToUser };

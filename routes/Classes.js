@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Cls = require('../models/Class');
+const { isAdmin } = require('../middlewares/isAdmin');
+const { isAuthenticated } = require('../middlewares/isAuthenticated');
+const { hasPermissionCheck } = require('../utlils/roleCheck');
 
 // Create a new cls
 router.post('/', async (req, res) => {
@@ -17,14 +20,21 @@ router.post('/', async (req, res) => {
   });
   
   // Get all classes
-  router.get('/', async (req, res) => {
-    try {
-      const classes = await Cls.find({});
-      res.send(classes);
-    } catch (error) {
-      console.error(error);
-      res.status(500).send(error);
+  router.get('/',isAuthenticated,isAdmin, async (req, res) => {
+    if(hasPermissionCheck(req.user?.roles,"read_class")){
+      res.json({h:"edewd"})
+    }else{
+      res.json({h:"don't permission"})
     }
+   
+    // try {
+
+    //   const classes = await Cls.find({});
+    //   res.send(classes);
+    // } catch (error) {
+    //   console.error(error);
+    //   res.status(500).send(error);
+    // }
   });
   
   // Update a cls
